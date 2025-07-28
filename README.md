@@ -33,13 +33,8 @@
 │   └── deployment checks.txt
 ├── package-lock.json
 └── node_modules/
-```
 
----
 
-### 📘 **README.md**
-
-```
 # Multi-language UI Support - Book Management App
 
 This project demonstrates a day-by-day implementation of multi-language support in a full-stack book management React application using `react-i18next`.
