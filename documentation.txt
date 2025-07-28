@@ -1,0 +1,142 @@
+# Multi-language Support Documentation
+
+This document explains how multi-language (internationalization) support is implemented in the Book Management Application using `react-i18next`.
+
+
+## Libraries Used
+
+* react-i18next: React bindings for i18next
+* i18next: Internationalization framework
+* i18next-browser-languagedetector: Automatically detects user language
+
+
+
+## Folder Structure
+
+
+src/
+├── locales/
+│   ├── en/
+│   │   └── translation.json
+│   └── es/
+│       └── translation.json
+├── i18n.js
+├── App.js
+└── components/
+    └── LanguageSwitcher.js
+
+
+
+
+## Installation
+
+Install the required packages:
+
+npm install i18next react-i18next i18next-browser-languagedetector
+
+
+## Step-by-Step Setup
+
+1. Create translation files:
+
+   * `src/locales/en/translation.json`
+
+   ```json
+   {
+     "welcome": "Welcome to the Book Management App",
+     "addBook": "Add Book"
+   }
+   ```
+
+   * `src/locales/es/translation.json`
+
+   ```json
+   {
+     "welcome": "Bienvenido a la aplicación de gestión de libros",
+     "addBook": "Agregar libro"
+   }
+   ```
+
+2. Create `i18n.js` in the `src` folder:
+
+   ```js
+   import i18n from 'i18next';
+   import { initReactI18next } from 'react-i18next';
+   import LanguageDetector from 'i18next-browser-languagedetector';
+
+   import translationEN from './locales/en/translation.json';
+   import translationES from './locales/es/translation.json';
+
+   const resources = {
+     en: { translation: translationEN },
+     es: { translation: translationES }
+   };
+
+   i18n
+     .use(LanguageDetector)
+     .use(initReactI18next)
+     .init({
+       resources,
+       fallbackLng: 'en',
+       interpolation: {
+         escapeValue: false
+       }
+     });
+
+   export default i18n;
+   ```
+
+3. Import `i18n.js` in your `index.js` or `App.js`:
+
+   ```js
+   import './i18n';
+   ```
+
+4. Use `useTranslation` in your components:
+
+   ```js
+   import { useTranslation } from 'react-i18next';
+
+   const Home = () => {
+     const { t } = useTranslation();
+
+     return (
+       <div>
+         <h1>{t('welcome')}</h1>
+         <button>{t('addBook')}</button>
+       </div>
+     );
+   };
+   ```
+
+5. Add a language switcher:
+
+   ```js
+   import { useTranslation } from 'react-i18next';
+
+   const LanguageSwitcher = () => {
+     const { i18n } = useTranslation();
+
+     const changeLanguage = (lng) => {
+       i18n.changeLanguage(lng);
+     };
+
+     return (
+       <div>
+         <button onClick={() => changeLanguage('en')}>English</button>
+         <button onClick={() => changeLanguage('es')}>Español</button>
+       </div>
+     );
+   };
+
+   export default LanguageSwitcher;
+   ```
+
+---
+
+## How to Add More Languages
+
+1. Create a new folder inside `src/locales/` with the language code (e.g., `fr`).
+2. Add a `translation.json` with translated keys.
+3. Import and add it to the `resources` object in `i18n.js`.
+

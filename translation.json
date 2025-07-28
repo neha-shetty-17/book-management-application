@@ -1,0 +1,12 @@
+
+{
+  "title": "Book Management",
+  "addBook": "Add Book",
+  "delete": "Delete",
+  "submit": "Submit",
+  "bookTitle": "Book Title",
+  "author": "Author",
+  "language": "Language",
+  "noBooks": "No books available",
+  "welcomeMessage": "Welcome to the Book Management App"
+}
